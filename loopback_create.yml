@@ -3,7 +3,6 @@
 - name: Sample IOS config for Ansible 2.5+
   hosts:
     - ios-xe-mgmt.cisco.com
-    - ios-xe-mgmt-latest.cisco.com
   gather_facts: no
   vars_prompt:
     - name: loopback_num
@@ -24,3 +23,11 @@
     ios_l3_interface:
       name: Loopback{{loopback_num}}
       ipv4: "{{loopback_ip}}"
+  - name: Gather listed interfaces with provided configurations
+    cisco.ios.ios_interfaces:
+      config:
+      state: gathered
+    register: interface_info
+  - name: Print the output
+    debug: vars=interface_info
+
