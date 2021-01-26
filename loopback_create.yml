@@ -31,3 +31,27 @@
   - name: Print the output
     debug: var=interface_info
 
+#Open a change validation Ticket back to ServiceNow with details
+
+- name: Create ticket with notes
+  hosts: localhost
+  gather_facts: no
+  connection: local
+
+  tasks:
+  - name: Create a change request
+    snow_record:
+      state: present
+      table: change_request
+      username: "{{ sn_username }}"
+      password: "{{ sn_password }}"
+      instance: "{{ sn_instance }}"
+      data:
+        severity: "{{ sn_severity }}"
+        priority: "{{ sn_priority }}"
+        short_description: "This is a test opened by Ansible"
+        work_notes : "{{ interface_info }}"
+    register: new_incident
+
+  - debug: 
+      var: new_incident.record
