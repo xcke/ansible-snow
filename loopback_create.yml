@@ -22,7 +22,7 @@
       name: Loopback{{loopback_num}}
       ipv4: "{{loopback_ip}}"
   - name: Gather listed interfaces with provided configurations
-    cisco.ios.ios_interfaces:
+    ios_l3_interface:
       config:
       state: gathered
     register: interface_info
