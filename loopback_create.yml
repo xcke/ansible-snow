@@ -29,5 +29,5 @@
       state: gathered
     register: interface_info
   - name: Print the output
-    debug: vars=interface_info
+    debug: var=interface_info
 
