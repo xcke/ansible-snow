@@ -11,9 +11,7 @@
     - name: loopback_ip
       prompt: "What IP address to use? Example 192.168.1.1/32"
       private: no
-
   tasks:
-
   - name: Create loopback {{loopback_num}}
     ios_interface:
       name: Loopback{{loopback_num}}
@@ -30,6 +28,9 @@
     register: interface_info
   - name: Print the output
     debug: var=interface_info
+  - name: Store Fact
+    set_fact:
+      interface_info: "{{ interface_info }}"
 
 #Open a change validation Ticket back to ServiceNow with details
 
@@ -37,7 +38,6 @@
   hosts: localhost
   gather_facts: no
   connection: local
-
   tasks:
   - name: Create a change request
     snow_record:
@@ -50,8 +50,7 @@
         severity: "{{ sn_severity }}"
         priority: "{{ sn_priority }}"
         short_description: "This is a test opened by Ansible"
-        work_notes : "{{ interface_info }}"
+        work_notes : "{{ hostvars['ios-xe-mgmt.cisco.com']['interface_info'] }}"
     register: new_incident
-
   - debug: 
       var: new_incident.record
