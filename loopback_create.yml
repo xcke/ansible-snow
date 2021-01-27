@@ -4,16 +4,11 @@
   hosts:
     - ios-xe-mgmt.cisco.com
   gather_facts: no
-  vars_prompt:
-    - name: loopback_num
-      prompt: "What Loopback Number to Configure?"
-      private: no
-    - name: loopback_ip
-      prompt: "What IP address to use? Example 192.168.1.1/32"
-      private: no
   collections:
     - cisco.ios
   tasks:
+  - include_vars: test_vars.yml
+    tags: ["test"]
   - name: Create loopback {{loopback_num}}
     ios_interface:
       name: Loopback{{loopback_num}}
