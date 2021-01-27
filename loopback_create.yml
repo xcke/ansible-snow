@@ -20,11 +20,11 @@
       enabled: True
       description: Created with Ansible
   - name: Assign IP to loopback
-    ios_l3_interface:
+    ios_interface:
       name: Loopback{{loopback_num}}
       ipv4: "{{loopback_ip}}"
   - name: Gather listed interfaces with provided configurations
-    ios_l3_interface:
+    cisco.ios.ios_l3_interfaces:
       config:
       state: gathered
     register: interface_info
