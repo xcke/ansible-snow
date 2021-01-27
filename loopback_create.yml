@@ -7,27 +7,27 @@
   collections:
     - cisco.ios
   tasks:
-  - include_vars: test_vars.yml
-    tags: ["test"]
-  - name: Create loopback {{loopback_num}}
-    ios_interface:
-      name: Loopback{{loopback_num}}
-      enabled: True
-      description: Created with Ansible
-  - name: Assign IP to loopback
-    ios_interface:
-      name: Loopback{{loopback_num}}
-      ipv4: "{{loopback_ip}}"
-  - name: Gather listed interfaces with provided configurations
-    cisco.ios.ios_l3_interfaces:
-      config:
-      state: gathered
-    register: interface_info
-  - name: Print the output
-    debug: var=interface_info
-  - name: Store Fact
-    set_fact:
-      interface_info: "{{ interface_info }}"
+    - include_vars: test_vars.yml
+      tags: ["never", "debug"]
+    - name: Create loopback {{loopback_num}}
+      ios_interface:
+        name: Loopback{{loopback_num}}
+        enabled: True
+        description: Created with Ansible
+    - name: Assign IP to loopback
+      ios_l3_interface:
+        name: Loopback{{loopback_num}}
+        ipv4: "{{loopback_ip}}"
+    - name: Gather listed interfaces with provided configurations
+      cisco.ios.ios_l3_interfaces:
+        config:
+        state: gathered
+      register: interface_info
+    - name: Print the output
+      debug: var=interface_info
+    - name: Store Fact
+      set_fact:
+        interface_info: "{{ interface_info }}"
 
 #Open a change validation Ticket back to ServiceNow with details
 
@@ -36,18 +36,20 @@
   gather_facts: no
   connection: local
   tasks:
-  - name: Create a change request
-    snow_record:
-      state: present
-      table: change_request
-      username: "{{ sn_username }}"
-      password: "{{ sn_password }}"
-      instance: "{{ sn_instance }}"
-      data:
-        severity: "{{ sn_severity }}"
-        priority: "{{ sn_priority }}"
-        short_description: "This is a test opened by Ansible"
-        work_notes : "{{ hostvars['ios-xe-mgmt.cisco.com']['interface_info'] }}"
-    register: new_incident
-  - debug: 
-      var: new_incident.record
+    - include_vars: test_vars.yml
+      tags: ["never", "debug"]
+    - name: Create a change request
+      snow_record:
+        state: present
+        table: change_request
+        username: "{{ sn_username }}"
+        password: "{{ sn_password }}"
+        instance: "{{ sn_instance }}"
+        data:
+          severity: "{{ sn_severity }}"
+          priority: "{{ sn_priority }}"
+          short_description: "Change verification for automated network deployment via Ansible"
+          work_notes: "{{ hostvars['ios-xe-mgmt.cisco.com']['interface_info'] }}"
+      register: new_incident
+    - debug:
+        var: new_incident.record
