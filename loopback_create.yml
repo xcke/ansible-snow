@@ -11,6 +11,8 @@
     - name: loopback_ip
       prompt: "What IP address to use? Example 192.168.1.1/32"
       private: no
+  collections:
+    - cisco.ios
   tasks:
   - name: Create loopback {{loopback_num}}
     ios_interface:
