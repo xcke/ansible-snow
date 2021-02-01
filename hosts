@@ -1,0 +1,27 @@
+[spine]
+spine-1 ansible_port=3001
+spine-2 ansible_port=3002
+
+[spine:vars]
+ansible_ssh_host = 127.0.0.1
+ansible_network_os = eos
+ansible_user = ansible
+ansible_ssh_pass = ansible
+ansible_become = yes
+ansible_become_method = enable
+ansible_connection = network_cli
+
+[leaf]
+leaf-1  ansible_port=3011
+leaf-2  ansible_port=3012
+leaf-3  ansible_port=3013
+leaf-4  ansible_port=3014
+
+[leaf:vars]
+ansible_ssh_host = 127.0.0.1
+ansible_network_os = eos
+ansible_ssh_user = ansible
+ansible_ssh_pass = ansible
+ansible_become = yes
+ansible_become_method = enable
+ansible_connection = network_cli

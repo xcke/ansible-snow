@@ -1,0 +1,10 @@
+{% for iface in interfaces %}
+interface {{ iface.name }}
+{% if iface.mode == 'l3_ipv4' %}
+    description {{ iface.description }}
+    no switchport
+    ip address {{ iface.ipv4_address }}
+{% else %}
+    switchport
+{% endif %}
+{% endfor %}

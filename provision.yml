@@ -1,0 +1,13 @@
+---
+- name: 'Roles for all devices'
+  hosts: all
+  gather_facts: false
+  roles:
+    - interfaces
+    - hostname
+    - bgp
+    - save_config
+ 
+
+
+      
