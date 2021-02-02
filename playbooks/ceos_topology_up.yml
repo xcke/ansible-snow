@@ -9,15 +9,15 @@
       ansible.builtin.copy:
         src: ceos-lab
         dest: /tmp
-        mode: '0644'
+        mode: "0644"
     - name: Run `docker-compose up`
       community.docker.docker_compose:
         project_src: /tmp/ceos-lab
         build: no
       register: output
     - name: Configure base-configuration
-      ansible.builtin.shell: 
-        cmd: setup.sh
+      ansible.builtin.shell:
+        cmd: /tmp/ceos-lab/setup.sh
         chdir: /tmp/ceos-lab/
         executable: /bin/bash
       register: output
