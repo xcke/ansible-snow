@@ -20,6 +20,8 @@
         cmd: /tmp/ceos-lab/setup.sh
         chdir: /tmp/ceos-lab/
       become: yes
+      become_user: root
+      become_method: sudo
       register: output
     - ansible.builtin.debug:
         var: output
