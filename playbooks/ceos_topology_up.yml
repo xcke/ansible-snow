@@ -16,7 +16,7 @@
         build: no
       register: output
     - name: Configure base-configuration
-      ansible.builtin.shell: setup.sh
+      command: setup.sh
       args:
         chdir: /tmp/ceos-lab/
       register: output
