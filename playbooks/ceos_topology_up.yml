@@ -1,7 +1,6 @@
 ---
 - name: Docker-compose up
   hosts: localhost
-  delegate: local
   gather_facts: no
   collections:
     - community.docker
