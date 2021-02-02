@@ -1,0 +1,12 @@
+- name: Docker-compose up
+  hosts: localhost
+  delegate: local
+  gather_facts: no
+  tasks:
+    - name: Run `docker-compose up` again
+      community.docker.docker_compose:
+        project_src: docker
+        build: no
+      register: output
+    - ansible.builtin.debug:
+        var: output

@@ -2,3 +2,4 @@
 collections:
   # This will instruct Ansible Tower to Install a role from Ansible Galaxy.
   - name: cisco.ios
+  - name: community.docker

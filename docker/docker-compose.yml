@@ -1,0 +1,200 @@
+version: "3"                                                                                                                    
+services:    
+
+  spine-1:                                                                                                                       
+    hostname: spine-1
+    container_name: spine-1                                                                                                           
+    image: ceosimage:4.20.5F                                                                                                        
+    privileged: true                                                                                                            
+    command: 
+      - "/sbin/init"
+    environment:                                                                                                                
+      container: docker                                                                                                         
+      CEOS: 1                                                                                                                   
+      EOS_PLATFORM: ceossim                                                                                                      
+      SKIP_ZEROTOUCH_BARRIER_IN_SYSDBINIT: 1                                                                                    
+      ETBA: 1                                                                                                                   
+      INTFTYPE: eth  
+    ports:
+      - "3001:22" 
+      - "8001:80"                                                                                                                                                                                     
+    networks:                                                                                                                   
+      default:                                                                                                                  
+      s1-l1:
+      s1-l2:
+      s1-l3:
+      s1-l4: 
+
+  spine-2:                                                                                                                       
+    hostname: spine-2   
+    container_name: spine-2                                                                                                         
+    image: ceosimage:4.20.5F                                                                                                        
+    privileged: true
+    command: "/sbin/init"                                                                                                         
+    environment:                                                                                                                
+      container: docker                                                                                                         
+      CEOS: 1                                                                                                                   
+      EOS_PLATFORM: ceossim
+      SKIP_ZEROTOUCH_BARRIER_IN_SYSDBINIT: 1                                                                                    
+      ETBA: 1                                                                                                                   
+      INTFTYPE: eth    
+    ports:
+      - "3002:22" 
+      - "8002:80"
+    networks:                                                                                                                   
+      default:                                                                                                                  
+      s2-l1:
+      s2-l2:
+      s2-l3:
+      s2-l4:  
+
+  leaf-1:                                                                                                                       
+    hostname: leaf-1     
+    container_name: leaf-1                                                                                                          
+    image: ceosimage:4.20.5F                                                                                                        
+    privileged: true                                                                                                            
+    command: "/sbin/init"
+    environment:                                                                                                                
+      container: docker                                                                                                         
+      CEOS: 1                                                                                                                   
+      EOS_PLATFORM: ceossim                                                                                                      
+      SKIP_ZEROTOUCH_BARRIER_IN_SYSDBINIT: 1                                                                                    
+      ETBA: 1                                                                                                                   
+      INTFTYPE: eth  
+    ports:
+      - "3011:22" 
+      - "8011:80"                                                                                                                                                                                      
+    networks:                                                                                                                   
+      default:                                                                                                                  
+      l1-l2:
+      s1-l1: 
+      s2-l1:  
+
+  leaf-2:                                                                                                                       
+    hostname: leaf-2       
+    container_name: leaf-2                                                                                                   
+    image: ceosimage:4.20.5F                                                                                                        
+    privileged: true                                                                                                            
+    command: "/sbin/init"
+    environment:                                                                                                                
+      container: docker                                                                                                         
+      CEOS: 1                                                                                                                   
+      EOS_PLATFORM: ceossim                                                                                                      
+      SKIP_ZEROTOUCH_BARRIER_IN_SYSDBINIT: 1                                                                                    
+      ETBA: 1                                                                                                                   
+      INTFTYPE: eth  
+    ports:
+      - "3012:22" 
+      - "8012:80"                                                                                                                                                                                         
+    networks:                                                                                                                   
+      default:                                                                                                                  
+      l1-l2:
+      s1-l2:  
+      s2-l2:
+
+  leaf-3:                                                                                                                       
+    hostname: leaf-3   
+    container_name: leaf-3                                                                                                         
+    image: ceosimage:4.20.5F                                                                                                        
+    privileged: true                                                                                                            
+    command: "/sbin/init"
+    environment:                                                                                                                
+      container: docker                                                                                                         
+      CEOS: 1                                                                                                                   
+      EOS_PLATFORM: ceossim                                                                                                      
+      SKIP_ZEROTOUCH_BARRIER_IN_SYSDBINIT: 1                                                                                    
+      ETBA: 1                                                                                                                   
+      INTFTYPE: eth 
+    ports:
+      - "3013:22" 
+      - "8013:80"                                                                                                                                                                                          
+    networks:                                                                                                                   
+      default:                                                                                                                  
+      l3-l4:
+      s1-l3:
+      s2-l3:  
+
+  leaf-4:                                                                                                                       
+    hostname: leaf-4     
+    container_name: leaf-4                                                                                                      
+    image: ceosimage:4.20.5F                                                                                                        
+    privileged: true                                                                                                            
+    command: "/sbin/init"
+    environment:                                                                                                                
+      container: docker                                                                                                         
+      CEOS: 1                                                                                                                   
+      EOS_PLATFORM: ceossim                                                                                                      
+      SKIP_ZEROTOUCH_BARRIER_IN_SYSDBINIT: 1                                                                                    
+      ETBA: 1                                                                                                                   
+      INTFTYPE: eth  
+    ports:
+      - "3014:22" 
+      - "8014:80"                                                                                                                                                                                         
+    networks:                                                                                                                   
+      default:                                                                                                                  
+      l3-l4:
+      s1-l4:
+      s2-l4:                                                                                                                 
+                                                                                                                       
+networks:                                                                                                                       
+  l1-l2:
+    driver: bridge
+    ipam:
+      driver: default
+      config:
+      - subnet: 10.0.100.0/24
+  l3-l4:
+    driver: bridge
+    ipam:
+      driver: default
+      config:
+      - subnet: 10.0.101.0/24
+  s1-l1:
+    driver: bridge
+    ipam:
+      driver: default
+      config:
+      - subnet: 172.16.13.0/24
+  s1-l2:
+    driver: bridge
+    ipam:
+      driver: default
+      config:
+      - subnet: 172.16.14.0/24
+  s1-l3:
+    driver: bridge
+    ipam:
+      driver: default
+      config:
+      - subnet: 172.16.15.0/24
+  s1-l4: 
+    driver: bridge
+    ipam:
+      driver: default
+      config:
+      - subnet: 172.16.16.0/24
+  s2-l1:
+    driver: bridge
+    ipam:
+      driver: default
+      config:
+      - subnet: 172.16.23.0/24
+  s2-l2:
+    driver: bridge
+    ipam:
+      driver: default
+      config:
+      - subnet: 172.16.24.0/24
+  s2-l3:
+    driver: bridge
+    ipam:
+      driver: default
+      config:
+      - subnet: 172.16.25.0/24
+  s2-l4: 
+    driver: bridge
+    ipam:
+      driver: default
+      config:
+      - subnet: 172.16.26.0/24
+
