@@ -19,6 +19,7 @@
       ansible.builtin.shell: 
         cmd: setup.sh
         chdir: /tmp/ceos-lab/
+        executable: /bin/bash
       register: output
     - ansible.builtin.debug:
         var: output
