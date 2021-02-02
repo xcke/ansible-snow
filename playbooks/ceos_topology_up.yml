@@ -10,10 +10,15 @@
         src: ceos-lab
         dest: /tmp
         mode: '0644'
-    - name: Run `docker-compose up` again
+    - name: Run `docker-compose up`
       community.docker.docker_compose:
         project_src: /tmp/ceos-lab
         build: no
+      register: output
+    - name: Configure base-configuration
+      ansible.builtin.shell: setup.sh
+      args:
+        chdir: /tmp/ceos-lab/
       register: output
     - ansible.builtin.debug:
         var: output
