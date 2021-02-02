@@ -7,7 +7,7 @@
   tasks:
     - name: Copy file with owner and permissions
       ansible.builtin.copy:
-        src: playbooks/ceos-lab
+        src: ceos-lab
         dest: /tmp/ceos-lab
         mode: '0644'
     - name: Run `docker-compose up` again
