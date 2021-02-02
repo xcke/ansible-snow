@@ -1,4 +1,3 @@
-#!/bin/sh
 docker cp ./startup-config spine-1:/mnt/flash/startup-config
 docker cp ./startup-config spine-2:/mnt/flash/startup-config
 docker cp ./startup-config leaf-1:/mnt/flash/startup-config
