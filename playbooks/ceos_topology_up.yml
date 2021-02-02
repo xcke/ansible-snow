@@ -19,7 +19,6 @@
       ansible.builtin.shell:
         cmd: /tmp/ceos-lab/setup.sh
         chdir: /tmp/ceos-lab/
-        executable: /bin/bash
       become: yes
       register: output
     - ansible.builtin.debug:
