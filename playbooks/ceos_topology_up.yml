@@ -1,7 +1,10 @@
+---
 - name: Docker-compose up
   hosts: localhost
   delegate: local
   gather_facts: no
+  collections:
+    - community.docker
   tasks:
     - name: Run `docker-compose up` again
       community.docker.docker_compose:
