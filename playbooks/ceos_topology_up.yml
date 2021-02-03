@@ -20,8 +20,9 @@
       ansible.builtin.shell:
         cmd: "docker cp ./startup-config spine-1:/mnt/flash/startup-config"
         chdir: /tmp/ceos-lab/
+      args:
+        executable: /bin/bash
       become: yes
-      executable: /bin/bash
       become_user: root
       become_method: sudo
       register: output
