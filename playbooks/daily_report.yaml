@@ -1,7 +1,6 @@
 ---
 - hosts: all
   gather_facts: no
-
   tasks:
     - name: Gather System Status
       eos_command:
@@ -12,7 +11,6 @@
             output: "json"
           - command: "show interfaces counters discards | nz"
             output: "text"
-        provider: "{{ provider }}"
       register: status
 
     - name: Check for Alerts
