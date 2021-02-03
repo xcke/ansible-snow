@@ -41,7 +41,6 @@
         - leaf-3
         - leaf-4
       args:
-        executable: /bin/bash
         chdir: /tmp/ceos-lab/
       become: yes
       become_user: root
