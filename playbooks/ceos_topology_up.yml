@@ -15,11 +15,13 @@
         project_src: /tmp/ceos-lab
         build: no
       register: output
+    # copy configuration files
     - name: Configure base-configuration
       ansible.builtin.shell:
-        cmd: /tmp/ceos-lab/setup.sh
+        cmd: "docker cp ./startup-config spine-1:/mnt/flash/startup-config"
         chdir: /tmp/ceos-lab/
       become: yes
+      executable: /bin/bash
       become_user: root
       become_method: sudo
       register: output
