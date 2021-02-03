@@ -5,7 +5,7 @@
     - name: Send probe
       eos_command:
         commands:
-          - command: "ping {{ item.ipv4_address }} record-route repeat 5 size 1400"
+          - command: "ping {{ item }} record-route repeat 5 size 1400"
             output: "text"
       loop: ping_host_list
       register: ping_result
