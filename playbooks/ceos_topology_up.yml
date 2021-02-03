@@ -17,11 +17,12 @@
       register: output
     # copy configuration files
     - name: Configure base-configuration
-      ansible.builtin.shell:
-        cmd: "docker cp ./startup-config spine-1:/mnt/flash/startup-config"
-        chdir: /tmp/ceos-lab/
+      command:
+        - "docker cp ./startup-config spine-1:/mnt/flash/startup-config"
+        - 'docker exec -it spine-1 Cli -p 15 -c "copy start run"'
       args:
         executable: /bin/bash
+        chdir: /tmp/ceos-lab/
       become: yes
       become_user: root
       become_method: sudo
