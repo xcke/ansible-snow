@@ -9,7 +9,6 @@
         name: arista.avd.build_output_folders
 
 - hosts: spine,leaf
-  gather_facts: no
   tasks:
     - name: generate device intended config and documentation
       import_role:
