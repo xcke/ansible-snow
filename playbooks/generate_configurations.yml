@@ -15,6 +15,6 @@
       import_role:
         name: arista.avd.eos_cli_config_gen
     - name: diff the running config against a master config
-      arista.eos.eos_config:
+      eos_config:
         diff_against: intended
         intended_config: "{{ lookup('file', root_folder + '/intended/configs' + inventory_hostname + '.cfg') }}"
