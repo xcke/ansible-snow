@@ -4,7 +4,10 @@ interface {{ iface.name }}
     description {{ iface.description }}
     no switchport
     ip address {{ iface.ipv4_address }}
-{% else %}
+{% elif iface.mode == 'l3_ipv4_lo'%}
+    description {{ iface.description }}
+    ip address {{ iface.ipv4_address }}
+{% else%}
     switchport
 {% endif %}
 {% endfor %}
