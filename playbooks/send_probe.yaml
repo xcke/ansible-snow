@@ -7,7 +7,7 @@
         commands:
           - command: "ping {{ item }} record-route repeat 5 size 1400"
             output: "text"
-      loop: ping_host_list
+      loop: "{{ ping_host_list }}"
       register: ping_result
 
     - set_fact: loss='{{ ping_result['stdout'][0] | packet_loss }}'
