@@ -1,8 +1,6 @@
 ---
-- hosts: "{{ run_hosts | mandatory }}"
+- hosts: all
   gather_facts: no
-  connection: local
-
   tasks:
     - name: Send probe
       eos_command:
