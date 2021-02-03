@@ -36,7 +36,7 @@ def format_stdout(value, input_commands):
 
 
 def get_packet_loss(value):
-    print value
+    print(value)
     loss = re.search(r'(\d+)%\s+packet\sloss', value, re.M)
     if loss:
         return loss.group(1)
