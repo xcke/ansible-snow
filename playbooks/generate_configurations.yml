@@ -1,0 +1,16 @@
+- name: Build Switch configuration
+  hosts: spine,leaf
+  connection: local
+  gather_facts: no
+  tasks:
+    - name: "build local folders for output"
+      tags: [build]
+      import_role:
+        name: arista.avd.build_output_folders
+
+- hosts: spine,leaf
+  gather_facts: no
+  tasks:
+    - name: generate device intended config and documentation
+      import_role:
+        name: arista.avd.eos_cli_config_gen

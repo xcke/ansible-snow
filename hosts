@@ -11,7 +11,6 @@ ansible_ssh_pass = ansible
 ansible_become = yes
 ansible_become_method = enable
 ansible_connection = network_cli
-
 [leaf]
 leaf-1  ansible_port=3011
 leaf-2  ansible_port=3012
@@ -26,3 +25,6 @@ ansible_ssh_pass = ansible
 ansible_become = yes
 ansible_become_method = enable
 ansible_connection = network_cli
+
+[all:vars]
+root_dir = ceos_data
