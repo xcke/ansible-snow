@@ -16,11 +16,31 @@
         build: no
       register: output
     # copy configuration files
-    - name: Configure base-configuration
-      command:
-        argv:
-          - docker cp ./startup-config spine-1:/mnt/flash/startup-config
-          - docker exec -it spine-1 Cli -p 15 -c "copy start run"
+    - name: Copy base-configuration
+      command: docker cp ./startup-config {{ item }}:/mnt/flash/startup-config
+      with_items:
+        - spine-1
+        - spine-2
+        - leaf-1
+        - leaf-2
+        - leaf-3
+        - leaf-4
+      args:
+        executable: /bin/bash
+        chdir: /tmp/ceos-lab/
+      become: yes
+      become_user: root
+      become_method: sudo
+      register: output
+    - name: Merge configuration to running configuration
+      command: docker exec -it {{ item }} Cli -p 15 -c "copy start run"
+      with_items:
+        - spine-1
+        - spine-2
+        - leaf-1
+        - leaf-2
+        - leaf-3
+        - leaf-4
       args:
         executable: /bin/bash
         chdir: /tmp/ceos-lab/
