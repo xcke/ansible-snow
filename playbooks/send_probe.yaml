@@ -9,7 +9,8 @@
             output: "text"
       loop: "{{ ping_host_list }}"
       register: ping_result
-    - set_fact: loss="{{ ping_result['stdout'][0] | packet_loss }}"
+    - debug: var=ping_result
+    - set_fact: loss="{{ ping_result["stdout"][0] | packet_loss }}"
     - assert:
         that:
           - "loss == '0'"
