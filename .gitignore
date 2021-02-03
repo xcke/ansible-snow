@@ -1,3 +1,4 @@
 test_vars.yml
 ansible.cfg
 test_*
+ceos_data/
