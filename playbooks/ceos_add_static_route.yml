@@ -8,8 +8,8 @@
         groups: customer_provided
     - name: configure static route
       eos_static_route:
-        address: { { prefix } }
-        next_hop: { { next_hop } }
-        admin_distance: { { admin_distance } }
+        address: "{{ prefix }}"
+        next_hop: "{{ next_hop }}"
+        admin_distance: "{{ admin_distance }}"
       register: output
     - debug: var=output
