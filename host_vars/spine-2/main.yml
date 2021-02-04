@@ -1,4 +1,5 @@
 # spine-2 data file
+ip_routing: true
 
 lldp:
   run: true

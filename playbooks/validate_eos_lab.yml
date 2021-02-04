@@ -1,0 +1,7 @@
+- name: Validate Arista Network
+  hosts: spine,leaf
+  gather_facts: no
+  tasks:
+    - name: validate states on EOS devices
+      import_role:
+        name: arista.avd.eos_validate_state
