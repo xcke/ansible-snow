@@ -9,10 +9,12 @@
         name: arista.avd.build_output_folders
 
 - hosts: spine,leaf
+  gather_facts: no
   tasks:
     - name: generate device intended config and documentation
       import_role:
         name: arista.avd.eos_cli_config_gen
+    - debug: msg="{{ root_dir + '/intended/configs/' + inventory_hostname + '.cfg' }}"
     - name: diff the running config against a master config
       eos_config:
-        src: "{{ lookup('file', '../' + root_dir + '/intended/configs/' + inventory_hostname + '.cfg') }}"
+        src: "{{ root_dir + '/intended/configs/' + inventory_hostname + '.cfg' }}"
