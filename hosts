@@ -1,6 +1,16 @@
 [spine]
 spine-1 ansible_port=3001
 spine-2 ansible_port=3002
+[customer_provided]
+
+[customer_provided:vars]
+ansible_ssh_host = 127.0.0.1
+ansible_network_os = eos
+ansible_user = ansible
+ansible_ssh_pass = ansible
+ansible_become = yes
+ansible_become_method = enable
+ansible_connection = network_cli
 
 # test123
 [spine:vars]

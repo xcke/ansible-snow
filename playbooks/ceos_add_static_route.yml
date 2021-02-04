@@ -1,0 +1,15 @@
+---
+- hosts: customer_provided
+  gather_facts: false
+  tasks:
+    - name: Add host to group 'just_created' with variable foo=42
+      add_host:
+        name: "{{ target_host }}"
+        groups: customer_provided
+    - name: configure static route
+      eos_static_route:
+        address: { { prefix } }
+        next_hop: { { next_hop } }
+        admin_distance: { { admin_distance } }
+      register: output
+    - debug: var=output
