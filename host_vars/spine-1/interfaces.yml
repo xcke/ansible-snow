@@ -19,3 +19,5 @@ interfaces:
     description: Lo0
     ipv4_address: 172.16.1.1/24
     mode: l3_ipv4_lo
+# migration to arista cli gen
+

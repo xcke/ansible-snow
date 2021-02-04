@@ -1,3 +1,4 @@
+# leaf-3 data file
 lldp:
   run: true
 
@@ -10,64 +11,51 @@ local_users:
 
 # migrating to eos cli gen
 router_bgp:
-  as: 65000
-  router_id: 1.1.1.1
+  as: 65013
+  router_id: 1.1.1.5
   bgp_defaults:
     - ""
   neighbors:
-    10.0.1.2:
-      remote_as: 65011
-      description: "leaf-1"
-    10.0.2.2:
-      remote_as: 65012
-      description: "leaf-2"
-    10.0.3.2:
-      remote_as: 65013
-      description: "leaf-3"
-    10.0.4.2:
-      remote_as: 65014
-      description: "leaf-4"
+    10.0.3.1:
+      remote_as: 65000
+      description: "spine-1"
+    10.3.0.1:
+      remote_as: 65000
+      description: "spine-2"
 
 router_ospf:
   process_ids:
     100:
       passive_interface_default: false
-      router_id: 1.1.1.1
+      router_id: 1.1.1.5
       log_adjacency_changes_detail: true
 
 ethernet_interfaces:
   Ethernet1:
-    ip_address: 10.0.1.1/24
-    type: routed
-    shutdown: false
-    description: leaf-1
-    ospf_network_point_to_point: true
-    ospf_area: 0
-  Ethernet2:
-    ip_address: 10.0.2.1/24
-    type: routed
-    shutdown: false
-    description: leaf-2
-    ospf_network_point_to_point: true
-    ospf_area: 0
-  Ethernet3:
-    ip_address: 10.0.3.1/24
-    type: routed
-    shutdown: false
-    description: leaf-3
-    ospf_network_point_to_point: true
-    ospf_area: 0
-  Ethernet4:
-    ip_address: 10.0.4.1/24
+    ip_address: 10.0.101.1/24
     type: routed
     shutdown: false
     description: leaf-4
     ospf_network_point_to_point: true
     ospf_area: 0
+  Ethernet2:
+    ip_address: 10.0.3.2/24
+    type: routed
+    shutdown: false
+    description: spine-1
+    ospf_network_point_to_point: true
+    ospf_area: 0
+  Ethernet3:
+    ip_address: 10.3.0.2/24
+    type: routed
+    shutdown: false
+    description: spine-2
+    ospf_network_point_to_point: true
+    ospf_area: 0
 
 loopback_interfaces:
   loopback1:
-    ip_address: 172.16.1.1/32
+    ip_address: 172.16.1.5/32
     description: Lo1
     ospf_network_point_to_point: false
     ospf_area: 0

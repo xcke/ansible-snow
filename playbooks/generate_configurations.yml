@@ -14,9 +14,14 @@
     - name: generate device intended config and documentation
       import_role:
         name: arista.avd.eos_cli_config_gen
-    - name: diff the running config against a master config
+      tags: ["build_configs"]
+    - name: Upload generated configurations
       eos_config:
         src: "{{ root_dir + '/intended/configs/' + inventory_hostname + '.cfg' }}"
+        replace: block
+        save_when: modified
       register: output
+      tags: ["deploy"]
     - debug:
         var: output
+      tags: ["deploy"]
