@@ -31,6 +31,8 @@
       become_user: root
       become_method: sudo
       register: output
+    - pause:
+        minutes: 1
     - name: Merge configuration to running configuration
       command: docker exec -it {{ item }} Cli -p 15 -c "copy start run"
       with_items:
