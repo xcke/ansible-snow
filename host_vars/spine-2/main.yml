@@ -1,3 +1,5 @@
+# spine-2 data file
+
 lldp:
   run: true
 
@@ -27,7 +29,8 @@ router_bgp:
     10.4.0.2:
       remote_as: 65014
       description: "leaf-4"
-
+  address_family_ipv4:
+    networks: 192.0.2.2/32
 router_ospf:
   process_ids:
     100:
@@ -71,3 +74,6 @@ loopback_interfaces:
     description: Lo1
     ospf_network_point_to_point: false
     ospf_area: 0
+  loopback2:
+    ip_address: 192.0.2.2/32
+    description: Lo2

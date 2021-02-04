@@ -1,4 +1,6 @@
 # leaf-3 data file
+ip_routing: true
+
 lldp:
   run: true
 
@@ -22,6 +24,8 @@ router_bgp:
     10.3.0.1:
       remote_as: 65000
       description: "spine-2"
+  address_family_ipv4:
+    networks: 192.0.2.5/32
 
 router_ospf:
   process_ids:
@@ -59,3 +63,6 @@ loopback_interfaces:
     description: Lo1
     ospf_network_point_to_point: false
     ospf_area: 0
+  loopback2:
+    ip_address: 192.0.2.5/32
+    description: Lo2
