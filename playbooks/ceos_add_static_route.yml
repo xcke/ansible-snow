@@ -1,11 +1,15 @@
 ---
-- hosts: customer_provided
+- hosts: localhost
   gather_facts: false
   tasks:
-    - name: Add host to group 'just_created' with variable foo=42
+    - name: Add host to group 'customer_provided'
       add_host:
         name: "{{ target_host }}"
         groups: customer_provided
+
+- hosts: customer_provided
+  gather_facts: false
+  tasks:
     - name: configure static route
       eos_static_route:
         address: "{{ prefix }}"
