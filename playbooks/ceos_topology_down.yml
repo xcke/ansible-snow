@@ -1,0 +1,21 @@
+---
+- name: Docker-compose down
+  hosts: localhost
+  gather_facts: no
+  collections:
+    - community.docker
+  tasks:
+    - name: Copy file with owner and permissions
+      ansible.builtin.copy:
+        src: ceos-lab
+        dest: /tmp
+        mode: "0644"
+    - name: Run `docker-compose up`
+      community.docker.docker_compose:
+        project_src: /tmp/ceos-lab
+        build: no
+        remove_volumes: true
+        state: absent
+      register: output
+    - ansible.builtin.debug:
+        var: output
