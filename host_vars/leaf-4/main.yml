@@ -25,7 +25,8 @@ router_bgp:
       remote_as: 65000
       description: "spine-2"
   address_family_ipv4:
-    networks: 192.0.2.6/32
+    networks:
+      192.0.2.6/32:
 
 router_ospf:
   process_ids:

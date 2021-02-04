@@ -30,7 +30,9 @@ router_bgp:
       remote_as: 65014
       description: "leaf-4"
   address_family_ipv4:
-    networks: 192.0.2.2/32
+    networks:
+      192.0.2.2/32:
+
 router_ospf:
   process_ids:
     100:
