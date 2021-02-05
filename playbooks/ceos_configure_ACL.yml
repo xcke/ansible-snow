@@ -1,0 +1,40 @@
+---
+- hosts: localhost
+  gather_facts: false
+  tasks:
+    - name: Add host to group 'customer_provided'
+      add_host:
+        name: "{{ target_host }}"
+        groups: customer_provided
+
+- hosts: customer_provided
+  gather_facts: false
+  tasks:
+  - name: Merge provided configuration with device configuration
+    eos_acls:
+      config:
+      - afi: ipv4
+        acls:
+        - name: acl01
+          aces:
+          - sequence: 10
+            grant: deny
+            protocol: ospf
+            source:
+              subnet_address: 20.0.0.0/8
+            destnation:
+              subnet_address: 20.0.0.0/8
+      state: merged
+    register: output
+  - debug: var=output
+  - name: Merge module attributes of given access-groups
+    arista.eos.eos_acl_interfaces:
+      config:
+      - name: Ethernet2
+        access_groups:
+        - afi: ipv4
+          acls:
+            name: acl01
+            direction: in
+    register: output
+  - debug: var=output
