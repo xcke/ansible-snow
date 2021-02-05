@@ -13,13 +13,12 @@
     - name: configure interface
       eos_l3_interfaces:
         config:
-        - name: {{ interface_name }}
+        - name: "{{ interface_name }}"
           ipv4:
-          - address: {{ interface_prefix }}
-        {% if interface_prefix_ipv6 %}
+          - address: "{{ interface_prefix }}"
           ipv6:
-          - address: {{ interface_prefix_ipv6 }}
-        {% endif %}
+          - address: "{{ interface_prefix_ipv6 }}"
+          when: interface_prefix_ipv6 is defined
         state: merged
       register: output
     - debug: var=output
