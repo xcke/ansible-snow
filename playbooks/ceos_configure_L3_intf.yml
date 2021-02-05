@@ -26,6 +26,6 @@
           ipv6:
           - address: "{{ interface_prefix_ipv6 }}"
         state: merged
-      when: (interface_prefix_ipv6 is defined) and (interface_prefix_ipv6 | lenght > 0)
+      when: (interface_prefix_ipv6 is defined) and (interface_prefix_ipv6 | length > 0)
       register: output
     - debug: var=output
