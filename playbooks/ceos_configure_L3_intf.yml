@@ -10,15 +10,22 @@
 - hosts: customer_provided
   gather_facts: false
   tasks:
-    - name: configure interface
+    - name: configure L3 interface IPv4 address
       eos_l3_interfaces:
         config:
         - name: "{{ interface_name }}"
           ipv4:
           - address: "{{ interface_prefix }}"
-          ipv6:
-          - address: "{{ interface_prefix_ipv6 }}"
-          when: interface_prefix_ipv6 is defined
         state: merged
+      register: output
+    - debug: var=output
+    - name: configure L3 interface IPv6 address (if provided)
+      eos_l3_interfaces:
+        config:
+        - name: "{{ interface_name }}"
+          ipv4:
+          - address: "{{ interface_prefix }}"
+        state: merged
+      when: interface_prefix_ipv6 is defined
       register: output
     - debug: var=output
