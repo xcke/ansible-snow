@@ -23,8 +23,8 @@
       eos_l3_interfaces:
         config:
         - name: "{{ interface_name }}"
-          ipv4:
-          - address: "{{ interface_prefix }}"
+          ipv6:
+          - address: "{{ interface_prefix_ipv6 }}"
         state: merged
       when: interface_prefix_ipv6 is defined
       register: output
