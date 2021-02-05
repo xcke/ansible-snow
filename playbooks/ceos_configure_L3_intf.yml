@@ -1,0 +1,25 @@
+---
+- hosts: localhost
+  gather_facts: false
+  tasks:
+    - name: Add host to group 'customer_provided'
+      add_host:
+        name: "{{ target_host }}"
+        groups: customer_provided
+
+- hosts: customer_provided
+  gather_facts: false
+  tasks:
+    - name: configure interface
+      eos_l3_interfaces:
+        config:
+        - name: {{ interface_name }}
+          ipv4:
+          - address: {{ interface_prefix }}
+        {% if interface_prefix_ipv6 %}
+          ipv6:
+          - address: {{ interface_prefix_ipv6 }}
+        {% endif %}
+        state: merged
+      register: output
+    - debug: var=output
