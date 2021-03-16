@@ -1,4 +1,5 @@
 ---
+# Added a comment
 - hosts: localhost
   gather_facts: false
   tasks:
